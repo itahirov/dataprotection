@@ -32,16 +32,13 @@ namespace MVCAspNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var cnstr="DefaultEndpointsProtocol=https;AccountName=storageaccountistaha15f;AccountKey=jQ1Ks3JJph1OigNWqersT8CTkVDbBiT7oz1hyTF25IoajfJuXwHUz6JQld8AvaqyrNSHPpN7XVakp75bJ8AOGg==;EndpointSuffix=core.windows.net";
+            var cnstr="DefaultEndpointsProtocol=https;AccountName=storageaccountistaha15f;AccountKey=xxxxxxxxxxxxxxxxxxxxxx;EndpointSuffix=core.windows.net";
             var blobClient= new BlobClient(cnstr,"dataprotection","key9.xml");
-            var kvUri= "https://istahisqlkv.vault.azure.net/keys/dp-key1/b032ed9bc60d44fcb132b17750d40273";
-            var kvClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(_tokenProvider.KeyVaultTokenCallback));
+            //var kvUri= "https://istahisqlkv.vault.azure.net/keys/dp-key1/b032ed9bc60d44fcb132b17750d40273";
+            //var kvClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(_tokenProvider.KeyVaultTokenCallback));
             services.AddDataProtection()
             .PersistKeysToAzureBlobStorage(blobClient);
             //.ProtectKeysWithAzureKeyVault(kvClient,kvUri);
-            /*services.AddDataProtection() 
-            .PersistKeysToAzureBlobStorage(new Uri("<blobUriWithSasToken>")) 
-            .ProtectKeysWithAzureKeyVault("<keyIdentifier>", "<clientId>", "<clientSecret>");*/
             var provider = new EphemeralDataProtectionProvider();
             var protector = provider.CreateProtector("prt1");
             Console.WriteLine(protector.Protect("test"));
